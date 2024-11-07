@@ -8,7 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
 
 import com.gold_mining_app_backend.enums.AttendanceStatus;
-
+import com.gold_mining_app_backend.input.AttendanceInput;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,16 +26,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Attendance {
-@UuidGenerator(style = Style.AUTO)
-@Id
-private UUID id;
-private LocalDateTime timeStamp;
-private LocalDateTime checkInTime;
-private LocalDateTime checkOutTime;
-@Enumerated(EnumType.STRING)
-private AttendanceStatus status;
-@ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,targetEntity = User.class)
-private User user;
-@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "attendance",targetEntity = EmployeePerfomance.class)
-private List<EmployeePerfomance>employeePerfomances;
+    @UuidGenerator(style = Style.AUTO)
+    @Id
+    private UUID id;
+    private LocalDateTime timeStamp;
+    private LocalDateTime checkInTime;
+    private LocalDateTime checkOutTime;
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus status;
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, targetEntity = User.class)
+    private User user;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "attendance", targetEntity = EmployeePerfomance.class)
+    private List<EmployeePerfomance> employeePerfomances;
+
+    public Attendance(AttendanceInput a, User user) {
+        if (!a.getId().isEmpty()) {
+            this.id = UUID.fromString(a.getId());
+        }
+        this.timeStamp = LocalDateTime.now();
+        this.checkInTime = a.getCheckInTime();
+        this.checkOutTime = a.getCheckOutTime();
+        this.status = a.getStatus();
+        this.user = user;
+    }
 }
