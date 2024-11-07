@@ -7,12 +7,10 @@ import java.util.UUID;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
 
-import com.gold_mining_app_backend.enums.AttendanceStatus;
+import com.gold_mining_app_backend.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -25,17 +23,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Attendance {
-@UuidGenerator(style = Style.AUTO)
-@Id
+public class Orders {
+    @Id
+    @UuidGenerator(style = Style.AUTO)
 private UUID id;
-private LocalDateTime timeStamp;
-private LocalDateTime checkInTime;
-private LocalDateTime checkOutTime;
-@Enumerated(EnumType.STRING)
-private AttendanceStatus status;
+private OrderStatus status;
+private double quantity;
+private LocalDateTime deadline;
+@ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,targetEntity = Product.class)
+private Product product;
 @ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,targetEntity = User.class)
 private User user;
-@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "attendance",targetEntity = Attendance.class)
-private List<EmployeePerfomance>employeePerfomances;
+private LocalDateTime timeStamp;
+@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "order",targetEntity = Sales.class)
+public List<Sales>salesList;
 }
