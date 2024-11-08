@@ -2,6 +2,7 @@ package com.gold_mining_app_backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.gold_mining_app_backend.modal.Inventory;
 import com.gold_mining_app_backend.services.InventoryServices;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/inventory")
 public class InventoryController {
   @Autowired

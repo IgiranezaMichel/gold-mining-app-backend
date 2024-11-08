@@ -57,7 +57,7 @@ public class OrderServices {
     }
 
     public PageDTO<OrderDTO> getAllOrderHavingSameStatus(PageInput pageInput, OrderStatus orderStatus) {
-        Page<Orders> page = userRepository.findAllByStatus(
+        Page<Orders> page = orderRepository.findAllByStatus(
                 PageRequest.of(pageInput.getPageNumber(), pageInput.getPageSize(), Sort.by(pageInput.getSortBy())),
                 orderStatus);
         return new PageDTO<>(page.getNumber(), page.getTotalPages(), page.getTotalElements(),
@@ -67,7 +67,7 @@ public class OrderServices {
 
     public PageDTO<OrderDTO> getAllPrincipleUserOrderPageHavingSameStatus(Principal principal, PageInput pageInput,
             OrderStatus orderStatus) {
-        Page<Orders> page = userRepository.findAllByUserEmailAndStatus(
+        Page<Orders> page = orderRepository.findAllByUserEmailAndStatus(
                 PageRequest.of(pageInput.getPageNumber(), pageInput.getPageSize(), Sort.by(pageInput.getSortBy())),
                 principal.getName(), orderStatus);
         return new PageDTO<>(page.getNumber(), page.getTotalPages(), page.getTotalElements(),
