@@ -1,6 +1,7 @@
 package com.gold_mining_app_backend.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,15 @@ public class ProductServices {
 
     public ResponseEntity<String> createPrduct(Product product) {
         try {
+            Product dbProduct=productRepository.findByQualityAndCategory(product.getQuality(),product.getCategory()).orElse(null);
+            if(dbProduct!=null){
+                product.setId(dbProduct.getId());
+            }
             productRepository.save(product);
-            return new ResponseEntity<>("Product savec successful", HttpStatus.CREATED);
+            if(dbProduct==null)
+            return new ResponseEntity<>("Product saved successful", HttpStatus.CREATED);
+            return new ResponseEntity<>("Product updated successful", HttpStatus.CREATED);
+
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
