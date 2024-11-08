@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PageInput {
-private int pageNumber;
-private int pageSize;
-private String sortBy;
-private String search;
+    private int pageNumber;
+    private int pageSize;
+    private String sortBy;
+    private String search;
 }
