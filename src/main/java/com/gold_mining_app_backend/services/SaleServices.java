@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.gold_mining_app_backend.dto.PageDTO;
+import com.gold_mining_app_backend.dto.SaleDTO;
+import com.gold_mining_app_backend.input.PageInput;
 import com.gold_mining_app_backend.input.SalesInput;
 import com.gold_mining_app_backend.modal.Inventory;
 import com.gold_mining_app_backend.modal.Orders;
@@ -33,5 +36,9 @@ public class SaleServices {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    public PageDTO<SaleDTO> getAllClientSale(PageInput pageInput) {
+        throw new UnsupportedOperationException("Unimplemented method 'getAllClientSale'");
     }
 }
