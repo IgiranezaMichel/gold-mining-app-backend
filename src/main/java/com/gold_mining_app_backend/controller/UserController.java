@@ -17,6 +17,7 @@ import com.gold_mining_app_backend.services.UserServices;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,19 +33,35 @@ public class UserController {
     public ResponseEntity<String> createUserAccount(@RequestBody UserInput userInput) {
         return userServices.createUserAccount(userInput);
     }
-    @PostMapping("delete-account/{id}")
+    @DeleteMapping("delete-account/{id}")
     public ResponseEntity<String> deleteUserAccount(@PathVariable String  id) {
         return userServices.deleteUser(id);
     }
-    @GetMapping("get/detail-principle")
+    @GetMapping("get/principle-detail")
     public UserDTO getUserDetail(Principal principal) {
         return userServices.getUserDetailPrinciple(principal);
     }
 
-    @GetMapping("find-all/user/role")
+    @PostMapping("/find-all/user/role")
     public PageDTO<UserDTO> getAllUserPageList(@RequestBody PageInput pageInput, @RequestParam Role role,
             @RequestParam USER_STATUS status) {
         return userServices.getAllUserPageList(pageInput, role, status);
     }
-
+    @PostMapping("/find-all/user")
+    public PageDTO<UserDTO> getAllUserList(@RequestBody PageInput pageInput,
+            @RequestParam USER_STATUS status) {
+        return userServices.getAllUserList(pageInput, status);
+    }
+    @GetMapping("count/by/{role}")
+    public long countUserByRole(@PathVariable Role role) {
+        return userServices.countByRole(role);
+    }
+    @GetMapping("count/size")
+    public long countUsers() {
+        return userServices.countUsers();
+    }
+    @GetMapping("reset-password/{userId}")
+    public ResponseEntity<String> resetUserPassword(@PathVariable String userId) {
+        return userServices.resetUserPassword(userId);
+    }
 }

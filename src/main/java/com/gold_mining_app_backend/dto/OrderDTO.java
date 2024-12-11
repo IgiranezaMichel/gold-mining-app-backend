@@ -19,6 +19,7 @@ private ProductDTO product;
 private UserDTO user;
 private LocalDateTime timeStamp;
 public OrderDTO(Orders order) {
+    if(order.getId()!=null)
     this.id = order.getId().toString();
     this.status = order.getStatus();
     this.quantity = order.getQuantity();

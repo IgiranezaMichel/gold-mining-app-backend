@@ -25,6 +25,7 @@ private String qtyOfUnprocesed;
 private String qtyOfprocesed;
 private String timeStamp;
 public ProcessedInventoryDTO(ProcessedInventory processedInventoryDTO) {
+    if(processedInventoryDTO.getId()!=null)
     this.id = processedInventoryDTO.getId().toString();
     DecimalFormat df = new DecimalFormat("#,###.##");
     this.qtyOfprocesed = df.format(processedInventoryDTO.getQtyOfprocesed());

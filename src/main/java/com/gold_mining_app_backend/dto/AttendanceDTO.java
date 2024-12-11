@@ -21,6 +21,7 @@ private String checkOutTime;
 private AttendanceStatus status;
 private UserDTO user;
 public AttendanceDTO(Attendance at){
+    if(at.getId()!=null)
     this.id=at.getId().toString();
     this.timeStamp=LocalDateTimeConverter.convertLocalDateTime(at.getTimeStamp(), "dd,MMMM-yyy HH:mm a");
     this.checkInTime=LocalDateTimeConverter.convertLocalDateTime(at.getCheckInTime(), "dd,MMMM-yyy HH:mm a");

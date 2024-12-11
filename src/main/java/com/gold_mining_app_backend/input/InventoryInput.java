@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class InventoryInput {
 private String id;
-private double qtyInStrock;
+private double qtyInStock;
 private LocalDateTime timeStamp;
 private String productId;
 }

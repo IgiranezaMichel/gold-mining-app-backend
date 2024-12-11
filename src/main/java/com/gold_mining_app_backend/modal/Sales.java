@@ -35,7 +35,7 @@ public class Sales {
     private Orders order;
     @Enumerated(EnumType.STRING)
     private SalesMethod method;
-
+ 
     public Sales(SalesInput salesInput, Inventory inventory, Orders order) {
         this.inventory = inventory;
         this.order = order;

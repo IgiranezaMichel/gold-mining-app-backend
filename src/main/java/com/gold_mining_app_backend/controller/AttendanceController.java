@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gold_mining_app_backend.dto.AttendanceDTO;
 import com.gold_mining_app_backend.dto.PageDTO;
 import com.gold_mining_app_backend.enums.ProductQuality;
-import com.gold_mining_app_backend.input.AttendanceInput;
+// import com.gold_mining_app_backend.input.AttendanceInput;
 import com.gold_mining_app_backend.input.PageInput;
 import com.gold_mining_app_backend.services.AttendanceServices;
 
@@ -24,10 +24,10 @@ public class AttendanceController {
   @Autowired
     private AttendanceServices attendanceServices;
 
-    @PostMapping("add-attendance")
-    public ResponseEntity<String> createAttendance(@RequestBody AttendanceInput AttendanceInput) {
-        return attendanceServices.createAttendance(AttendanceInput);
-    }
+    // @PostMapping("add-attendance")
+    // public ResponseEntity<String> createAttendance(@RequestBody AttendanceInput AttendanceInput) {
+    //     return attendanceServices.createAttendance(AttendanceInput);
+    // }
     @PostMapping("delete-Attendance/{id}")
     public ResponseEntity<String> deleteAttendance(@PathVariable String  id) {
         return attendanceServices.deleteAttendance(id);

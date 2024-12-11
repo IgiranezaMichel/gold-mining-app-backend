@@ -23,6 +23,7 @@ private Role role;
 private USER_STATUS status;
 private String timeStamp;
 public UserDTO(User u){
+    if(u.getId()!=null)
     this.id=u.getId().toString();
     if(u.getPicture()!=null)
     this.picture=ImageConverter.convertToString(u.getPicture());

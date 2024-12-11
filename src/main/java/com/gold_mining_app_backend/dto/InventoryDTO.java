@@ -16,8 +16,9 @@ public class InventoryDTO {
     private ProductDTO product;
 
     public InventoryDTO(Inventory inventory) {
+        if(inventory.getId()!=null)
         this.id = inventory.getId().toString();
-        this.qtyInStrock = inventory.getQtyInStrock();
+        this.qtyInStrock = inventory.getQtyInStock();
         this.timeStamp = LocalDateTimeConverter.convertLocalDateTime(inventory.getTimeStamp(), "dd, MMM-yyy HH:mm a");
         this.product = new ProductDTO(inventory.getProduct());
     }

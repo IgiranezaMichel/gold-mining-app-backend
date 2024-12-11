@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.gold_mining_app_backend.enums.Role;
 import com.gold_mining_app_backend.enums.USER_STATUS;
@@ -13,6 +14,7 @@ import com.gold_mining_app_backend.input.UserInput;
 import com.gold_mining_app_backend.util.ImageConverter;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,6 +38,7 @@ private UUID id;
 private byte [] picture;
 private String name;
 private String gender;
+@Column(unique = true)
 private String email;
 private String phoneNumber;
 @Enumerated(EnumType.STRING)
@@ -62,12 +65,21 @@ public List<Attendance>attendanceList;
 @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "user",targetEntity = Orders.class)
 public List<Orders>orderList;
 public User(UserInput in){
+if(!in.getId().equals("")&&in.getId()!=null)this.id=UUID.fromString(in.getId());
 this.picture=ImageConverter.convertToBase64(in.getBase64Image());
 this.timeStamp=LocalDateTime.now();
-if(this.name.equals(""))throw new RuntimeException("Name is required");
-if(this.getGender().equals(""))throw new RuntimeException("Gender is required");
-if(this.getEmail().equals(""))throw new RuntimeException("Email is required");
-if(this.getPhoneNumber().equals(""))throw new RuntimeException("Phone number is required");
-if(this.getPassword().equals(""))throw new RuntimeException("Password is required");
+if(in.getName().equals(""))throw new RuntimeException("Name is required");
+this.name=in.getName();
+if(in.getGender().equals(""))throw new RuntimeException("Gender is required");
+this.gender=in.getGender();
+if(in.getEmail().equals(""))throw new RuntimeException("Email is required");
+this.email=in.getEmail();
+if(in.getPhoneNumber().equals(""))throw new RuntimeException("Phone number is required");
+this.phoneNumber=in.getPhoneNumber();
+if(in.getPassword().equals(""))throw new RuntimeException("Password is required");
+this.password=BCrypt.hashpw(in.getPassword(), BCrypt.gensalt());
+this.status=USER_STATUS.ACTIVE;
+if(in.getRole().name().equals(""))throw new RuntimeException("Role is required");
+this.role=in.getRole();
 }
 }
