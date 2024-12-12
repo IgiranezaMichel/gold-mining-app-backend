@@ -60,10 +60,12 @@ public User(UUID id, byte[] picture, String name, String gender, String email, S
     this.password = password;
     this.timeStamp = timeStamp;
 }
-@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "user",targetEntity = Attendance.class)
-public List<Attendance>attendanceList;
+
+
 @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "user",targetEntity = Orders.class)
 public List<Orders>orderList;
+@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY,mappedBy = "userPosted",targetEntity = Incident.class)
+public List<Incident>userPostList;
 public User(UserInput in){
 if(!in.getId().equals("")&&in.getId()!=null)this.id=UUID.fromString(in.getId());
 this.picture=ImageConverter.convertToBase64(in.getBase64Image());

@@ -3,16 +3,11 @@ package com.gold_mining_app_backend.modal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
-import javax.management.RuntimeErrorException;
-
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.UuidGenerator.Style;
-
 import com.gold_mining_app_backend.enums.ProductCategory;
 import com.gold_mining_app_backend.enums.ProductQuality;
 import com.gold_mining_app_backend.input.ProductInput;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
